@@ -275,7 +275,7 @@ while number != '0':
         influxdb_conf = "sudo cp -r " + path + "/monitoring/influxdb.conf /etc/influxdb/"
         os.system(influxdb_conf)
         os.system("xterm -e \"sudo apt -y install ufw\"")
-        os.system("xterm -e \"sudo ufw enable\"")
+        os.system("xterm -e \"sudo ufw disable\"")
         os.system("xterm -e \"sudo ufw allow 22/tcp\"")
         os.system("xterm -e \"sudo ufw allow 8086/tcp\"")
         # install elasticsearch
@@ -308,6 +308,7 @@ while number != '0':
         os.system("sudo systemctl restart grafana-server")
         os.system("sudo systemctl restart alertmanager")
         os.system("sudo systemctl restart influxdb")
+        os.system("sudo systemctl enable grafana-server.service")
         # threading.Thread(target=i).start()
         # threading.Thread(target=k).start()
         # threading.Thread(target=l).start()
