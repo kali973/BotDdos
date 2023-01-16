@@ -1,7 +1,7 @@
 from scapy.all import *
 from scapy.layers.inet import IP, ICMP
 
-# Saisieadresse IP cible et débit et nombre de paquets (temps)
+# Saisie adresse IP cible et débit et nombre de paquets (temps)
 target_ip = input("Enter the target IP address: ")
 packet_rate = int(input("Enter the packet rate (packets per second): "))
 packet_count = int(input("Enter the number of packets to send (-1 to send indefinitely): "))
