@@ -182,7 +182,7 @@ while number != '0':
         os.system("xterm -e \"sudo apt-get install -y wireshark\"")
         # install prometheus
         os.system("xterm -e \"tar -xvf prometheus-files.tar.gz\"")
-        os.system("xterm -e \"sudo cp apache_exporter-*.linux-amd64/apache_exporter /usr/local/bin\"")
+        os.system("xterm -e \"sudo cp -f apache_exporter-*.linux-amd64/apache_exporter /usr/local/bin\"")
         os.system("sudo chmod +x /usr/local/bin/apache_exporter")
         os.system("sudo groupadd --system prometheus")
         os.system("sudo useradd -s /sbin/nologin --system -g prometheus prometheus")
@@ -205,10 +205,10 @@ while number != '0':
         folder = pathlib.Path("/var/lib/grafana/dashboards")
         if not os.path.exists(folder):
             os.system("sudo mkdir /var/lib/grafana/dashboards")
-        dashboards = "sudo cp " + path + "/dashboards/apache_rev1.json /var/lib/grafana/dashboards"
+        dashboards = "sudo cp -f " + path + "/dashboards/apache_rev1.json /var/lib/grafana/dashboards"
         os.system(dashboards)
-        sample = "sudo cp " + path + "/monitoring/sample.yaml /usr/share/grafana/conf/provisioning/dashboards/"
-        sample = "sudo cp " + path + "/monitoring/sample.yaml /etc/grafana/provisioning/dashboards/"
+        sample = "sudo cp -f " + path + "/monitoring/sample.yaml /usr/share/grafana/conf/provisioning/dashboards/"
+        sample = "sudo cp -f " + path + "/monitoring/sample.yaml /etc/grafana/provisioning/dashboards/"
         # install prometheus
         os.system("sudo useradd --no-create-home --shell /bin/false prometheus")
         folder = pathlib.Path("/etc/prometheus")
@@ -219,22 +219,22 @@ while number != '0':
             os.system("sudo mkdir /var/lib/prometheus")
         os.system("sudo chown prometheus:prometheus /etc/prometheus")
         os.system("sudo chown prometheus:prometheus /var/lib/prometheus")
-        prometheusfiles = "sudo cp " + path + "/prometheus-2.41.0.linux-amd64/prometheus /usr/local/bin/"
+        prometheusfiles = "sudo cp -f " + path + "/prometheus-2.41.0.linux-amd64/prometheus /usr/local/bin/"
         os.system(prometheusfiles)
-        promtool = "sudo cp " + path + "/prometheus-2.41.0.linux-amd64/promtool /usr/local/bin/"
+        promtool = "sudo cp -f " + path + "/prometheus-2.41.0.linux-amd64/promtool /usr/local/bin/"
         os.system(promtool)
         os.system("sudo chown prometheus:prometheus /usr/local/bin/prometheus")
         os.system("sudo chown prometheus:prometheus /usr/local/bin/promtool")
-        consoles = "sudo cp -r " + path + "/prometheus-2.41.0.linux-amd64/consoles /etc/prometheus"
+        consoles = "sudo cp -r -f " + path + "/prometheus-2.41.0.linux-amd64/consoles /etc/prometheus"
         os.system(consoles)
-        consolelibraries = "sudo cp -r " + path + "/prometheus-2.41.0.linux-amd64/console_libraries /etc/prometheus"
+        consolelibraries = "sudo cp -r -f " + path + "/prometheus-2.41.0.linux-amd64/console_libraries /etc/prometheus"
         os.system(consolelibraries)
         os.system("sudo chown -R prometheus:prometheus /etc/prometheus/consoles")
         os.system("sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries")
-        prometheus_yml = "sudo cp -r " + path + "/monitoring/prometheus.yml /etc/prometheus/"
+        prometheus_yml = "sudo cp -r -f " + path + "/monitoring/prometheus.yml /etc/prometheus/"
         os.system(prometheus_yml)
         os.system("sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml")
-        prometheus_service = "sudo cp -r " + path + "/monitoring/prometheus.service /etc/systemd/system/"
+        prometheus_service = "sudo cp -r -f " + path + "/monitoring/prometheus.service /etc/systemd/system/"
         os.system(prometheus_service)
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl start prometheus")
@@ -242,9 +242,9 @@ while number != '0':
         folder = pathlib.Path("/etc/sysconfig")
         if not os.path.exists(folder):
             os.system("sudo mkdir /etc/sysconfig")
-        apache_exporter = "sudo cp -r " + path + "/monitoring/apache_exporter /etc/sysconfig/"
+        apache_exporter = "sudo cp -r -f " + path + "/monitoring/apache_exporter /etc/sysconfig/"
         os.system(apache_exporter)
-        apache_exporter_service = "sudo cp -r " + path + "/monitoring/apache_exporter.service /etc/systemd/system/"
+        apache_exporter_service = "sudo cp -r -f " + path + "/monitoring/apache_exporter.service /etc/systemd/system/"
         os.system(apache_exporter_service)
         # create alertmanager
         directory = "/opt/alertmanager/"
@@ -259,7 +259,7 @@ while number != '0':
         os.system("sudo chown -Rfv root:root /opt/alertmanager")
         os.system("sudo mkdir -v /opt/alertmanager/data")
         os.system("sudo chown -Rfv prometheus:prometheus /opt/alertmanager/data")
-        alertmanager_service = "sudo cp -r " + path + "/monitoring/alertmanager.service /etc/systemd/system/alertmanager.service"
+        alertmanager_service = "sudo cp -r -f " + path + "/monitoring/alertmanager.service /etc/systemd/system/alertmanager.service"
         os.system(alertmanager_service)
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl start alertmanager.service")
@@ -272,7 +272,7 @@ while number != '0':
         os.system("xterm -e \"sudo apt-get update\"")
         os.system("xterm -e \"sudo apt install -y influxdb\"")
         os.system("xterm -e \"sudo systemctl enable --now influxdb\"")
-        influxdb_conf = "sudo cp -r " + path + "/monitoring/influxdb.conf /etc/influxdb/"
+        influxdb_conf = "sudo cp -r -f " + path + "/monitoring/influxdb.conf /etc/influxdb/"
         os.system(influxdb_conf)
         os.system("xterm -e \"sudo apt -y install ufw\"")
         os.system("xterm -e \"sudo ufw disable\"")
@@ -285,13 +285,13 @@ while number != '0':
         # os.system("xterm -e \"sudo apt install elasticsearch\"")
         # os.system("xterm -e \"sudo systemctl enable elasticsearch.service\"")
         # os.system("sudo systemctl start elasticsearch")
-        # elasticsearch = "sudo cp -r " + path + "/monitoring/elasticsearch.yml /etc/elasticsearch/"
+        # elasticsearch = "sudo cp -r -f " + path + "/monitoring/elasticsearch.yml /etc/elasticsearch/"
         # os.system(elasticsearch)
         # install chrome browser
         os.system("xterm -e \"wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\"")
         os.system("xterm -e \"apt install ./google-chrome-stable_current_amd64.deb\"")
         print("[O] Opening http://localhost:3000 ...\n")
-        os.system("google-chrome --no-sandbox http://localhost:3000/d/2K0pTah4k/apache?orgId=1&refresh=5s")
+        os.system("google-chrome --no-sandbox http://localhost:3000/d/UDdpyzz7z/prometheus-2-0-stats?orgId=1&refresh=5s")
         file = pathlib.Path("google-chrome-stable_current_amd64.deb")
         if file.exists():
             os.remove(file)
@@ -309,6 +309,7 @@ while number != '0':
         os.system("sudo systemctl restart alertmanager")
         os.system("sudo systemctl restart influxdb")
         os.system("sudo systemctl enable grafana-server.service")
+        # os.system("sudo systemctl restart elasticsearch")
         # threading.Thread(target=i).start()
         # threading.Thread(target=k).start()
         # threading.Thread(target=l).start()

@@ -26,3 +26,8 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: [ 'localhost:9093' ]
+
+  - job_name: 'elasticsearch'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'localhost:9200' ]
